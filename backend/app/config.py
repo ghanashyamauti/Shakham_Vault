@@ -22,10 +22,11 @@ class Settings(BaseSettings):
     ALGORITHM: str = os.getenv("ALGORITHM", "HS256")
     ACCESS_TOKEN_EXPIRE_MINUTES: int = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "1440"))
 
-    # AES-256-GCM Master Encryption Key (Base64-encoded 32-byte key)
+    # AES-256-GCM Master Encryption Key & Optional Fallback Keys for Zero-Downtime Rotation (from .env)
     AES_KEY_BASE64: str = os.getenv("AES_KEY_BASE64", "")
+    FALLBACK_AES_KEYS: str = os.getenv("FALLBACK_AES_KEYS", "")
 
-    # CORS Allowed Origins (Comma-separated string)
+    # CORS Allowed Origins (Comma-separated string, or * for all origins)
     ALLOWED_ORIGINS: str = os.getenv(
         "ALLOWED_ORIGINS",
         "http://localhost:5173,http://localhost:3000,http://127.0.0.1:5173,http://127.0.0.1:3000"
@@ -43,6 +44,23 @@ class Settings(BaseSettings):
     @property
     def cors_origins_list(self) -> List[str]:
         return [origin.strip() for origin in self.ALLOWED_ORIGINS.split(",") if origin.strip()]
+
+    @property
+    def all_aes_keys_list(self) -> List[str]:
+        """Returns ordered list of all active and fallback AES keys configured in .env"""
+        keys = []
+        if self.AES_KEY_BASE64:
+            keys.extend([k.strip() for k in self.AES_KEY_BASE64.split(",") if k.strip()])
+        if self.FALLBACK_AES_KEYS:
+            keys.extend([k.strip() for k in self.FALLBACK_AES_KEYS.split(",") if k.strip()])
+        # Deduplicate while preserving configured order
+        seen = set()
+        deduped = []
+        for k in keys:
+            if k not in seen:
+                seen.add(k)
+                deduped.append(k)
+        return deduped
 
     class Config:
         env_file = ".env"
