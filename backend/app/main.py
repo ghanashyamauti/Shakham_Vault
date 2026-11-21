@@ -136,6 +136,17 @@ app.include_router(envs.router)
 app.include_router(audit.router)
 app.include_router(trash.router)
 
+# Welcome Root Endpoint
+@app.get("/")
+def root():
+    return {
+        "service": settings.SERVICE_NAME,
+        "status": "online",
+        "environment": settings.ENVIRONMENT,
+        "documentation": "/docs",
+        "health": "/api/health"
+    }
+
 # Real Production Health Check (Pings database with SELECT 1)
 @app.get("/api/health")
 def health_check(db: Session = Depends(get_db)):
