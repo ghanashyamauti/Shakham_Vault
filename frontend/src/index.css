@@ -1,0 +1,171 @@
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=JetBrains+Mono:wght@400;500;600&family=Orbitron:wght@600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-slate-50 text-slate-900 font-sans transition-colors duration-150 antialiased;
+    font-family: 'Chakra Petch', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    letter-spacing: 0.01em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  .dark body {
+    @apply bg-[#0b0f17] text-slate-100;
+  }
+
+  /* Monospace typography precision */
+  code, kbd, samp, pre, .font-mono {
+    font-feature-settings: "liga" 1, "calt" 1, "zero" 1;
+    letter-spacing: -0.01em;
+  }
+}
+
+/* Custom refined scrollbars */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #273142;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #3e4c63;
+}
+
+/* Masked secret text styling */
+.secret-masked {
+  filter: blur(5px);
+  user-select: none;
+  transition: filter 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.secret-masked:hover {
+  filter: blur(2.5px);
+}
+
+/* Ambient patterns - Royal Indigo & Aurora Violet */
+.bg-mesh-gradient-light {
+  background-image:
+    radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.08) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(139, 92, 246, 0.07) 0px, transparent 50%),
+    radial-gradient(at 50% 100%, rgba(99, 102, 241, 0.04) 0px, transparent 50%);
+}
+
+.bg-mesh-gradient-dark {
+  background-image:
+    radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.14) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(139, 92, 246, 0.12) 0px, transparent 50%),
+    radial-gradient(at 50% 100%, rgba(79, 70, 229, 0.08) 0px, transparent 50%);
+}
+
+/* Tactile Glassmorphic Button Effects (Option 4: Royal Indigo & Aurora Violet) */
+.btn-primary {
+  @apply relative inline-flex items-center justify-center font-semibold text-white transition-all duration-150 rounded-xl select-none;
+  background: linear-gradient(180deg, #6366f1 0%, #4f46e5 100%);
+  border-top: 1px solid rgba(255, 255, 255, 0.32);
+  border-bottom: 1px solid rgba(49, 46, 129, 0.6);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 4px 14px rgba(99, 102, 241, 0.3);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(180deg, #818cf8 0%, #6366f1 100%);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(99, 102, 241, 0.4);
+}
+
+.btn-primary:active {
+  background: linear-gradient(180deg, #4f46e5 0%, #4338ca 100%);
+  transform: scale(0.98);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+}
+
+.btn-secondary {
+  @apply relative inline-flex items-center justify-center font-medium text-slate-700 dark:text-slate-200 bg-white/80 dark:bg-slate-800/80 backdrop-blur-md border border-slate-200 dark:border-slate-700/80 hover:bg-slate-100 dark:hover:bg-slate-700 transition-all duration-150 rounded-xl select-none;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.btn-secondary:active {
+  transform: scale(0.98);
+}
+
+/* Concept 2: Liquid Emerald Shimmer (Pure Typography, Smooth Animated Metallic Sheen) */
+@keyframes liquidEmeraldShimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.vault-shimmer-text {
+  font-family: 'Orbitron', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  font-weight: 800;
+  display: inline-block;
+  background: linear-gradient(
+    135deg,
+    #0d9488 0%,
+    #3fbfa8 25%,
+    #5eead4 48%,
+    #a7f3d0 62%,
+    #3fbfa8 80%,
+    #0d9488 100%
+  );
+  background-size: 250% 250%;
+  animation: liquidEmeraldShimmer 6s ease-in-out infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 1px 6px rgba(63, 191, 168, 0.4));
+  transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+.dark .vault-shimmer-text {
+  background: linear-gradient(
+    135deg,
+    #0f766e 0%,
+    #3fbfa8 22%,
+    #5eead4 45%,
+    #e6fffa 60%,
+    #3fbfa8 80%,
+    #14b8a6 100%
+  );
+  background-size: 250% 250%;
+  animation: liquidEmeraldShimmer 6s ease-in-out infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 12px rgba(63, 191, 168, 0.55));
+}
+
+.group:hover .vault-shimmer-text,
+.vault-shimmer-text:hover {
+  filter: drop-shadow(0 0 16px rgba(63, 191, 168, 0.85));
+  transform: translateY(-0.5px);
+}
+
+.vault-brand-text {
+  @apply vault-shimmer-text;
+}
